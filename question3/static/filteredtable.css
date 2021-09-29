@@ -1,0 +1,31 @@
+body {
+    text-align:center;
+    background-color: #FFF5FD;
+  }
+  
+  h1 {
+    margin-top:30px;
+    color: #002366;
+    text-shadow: 0 2 2 grey;
+    font-size:3rem;
+  }
+  table{
+    margin: 20px auto 150px auto;
+    border-collapse: collapse;
+    border: 1px solid #3C5186;
+  }
+  th{
+    height: 48px;
+    background-color: #F29191;
+    color:white;
+  }
+  td {
+    height: 55px;
+    text-align:left;
+    width: 290px;
+    padding: 5px;
+  }
+  tr:nth-child(odd) {
+    background-color: #F8F5F1;
+  }
+  
