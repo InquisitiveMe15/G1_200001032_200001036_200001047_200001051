@@ -10,16 +10,12 @@ Umang Jain10:48 AM
 200001076 present
 Bhore Parth Shirish10:48 AM
 200001015 Present
-Dhanorkar Chaitanya Vilas10:48 AM
-200001021 Present
 Mahajan Sakshi Rajendra10:48 AM
 200001041 present
 Tadi Dinesh Kumar10:48 AM
 200001075 present
 Maramreddy Krishna Ananda10:48 AM
 200001042 present
-Annavarapu Bhanu Teja10:48 AM
-200001004-present
 Neha Iiti10:48 AM
 200001051 present
 Koneti Anuhya10:48 AM
@@ -38,6 +34,8 @@ Gaurav Khushpat Jain10:48 AM
 200001023 present
 Arvind Yadav10:48 AM
 200001009 present
+Nishit Sushil Singh10:48 AM
+200001057 present
 Atharv Bhagya10:48 AM
 200001011 present
 Harshit Pachar10:48 AM
@@ -50,8 +48,6 @@ Byri Sahas Reddy10:48 AM
 200001017 present
 Sarvagya Kanungo10:48 AM
 200005040 present 
-Ramakrishna Raju Alluri10:48 AM
-200001065-present
 Nischit Hosamani10:48 AM
 200001054 present
 Patil Prathamesh10:48 AM
@@ -108,5 +104,7 @@ Hritika Iiti10:49 AM
 200001029 present
 Allu Mrudula10:49 AM
 200001002 present
-Mayank Tayal10:48 AM
-200001048 Present
+Nishit Sushil Singh10:48 AM
+200001056 present
+Ayush Kumar Sinha10:48 AM
+200001011 present

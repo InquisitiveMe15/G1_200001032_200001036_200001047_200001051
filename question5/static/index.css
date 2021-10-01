@@ -16,7 +16,7 @@ p{
 input{
     background-color: #F8F5F1;
     height:30px;
-    border-radius:15px;
+    /* border-radius:15px; */
     margin-bottom: 30px;
 }
 button{

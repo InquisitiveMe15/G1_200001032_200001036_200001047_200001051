@@ -5,14 +5,16 @@ import pandas as pd
 from pandas import DataFrame
 import re
 
+
 app = Flask(__name__)
+
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
-@app.route("/getfile", methods=['POST','GET'])
 
+@app.route("/getfile", methods=['POST', 'GET'])
 def getfile():
     if request.method == 'POST':
         textfile = request.files["textfile"]
@@ -23,59 +25,64 @@ def getfile():
         textfile.save(os.path.join(textfilename))
         csvfile.save(os.path.join(csvfilename))
 
-        f = open("attendance.txt",'r')
+        f = open("attendance.txt", 'r')
         arrayOfRollNos = []
         arrayOfNames = []
-        i = 1
-        for lines in f.readlines():
-          if i%2 ==0:
-             arrayOfRollNos.append(lines.split(" ")[0])
-             i=i+1
-          else:
-             arrayOfNames.append(re.split('\d+',lines)[0])
-             i=i+1
-             continue
+       
 
-        newArraySorted=sorted(arrayOfNames)
-        listOfWhoputProxy=[]
-        for i in newArraySorted:
-          if newArraySorted.count(i)>1:
-             listOfWhoputProxy.append(i)
-             for c in range(newArraySorted.count(i)):
-                for j in newArraySorted:
-                    if i==j and newArraySorted.count(i)>1:
-                        newArraySorted.remove(i)
-
-        combinedArray=[[arrayOfNames[i],arrayOfRollNos[i]] for i in range(len(arrayOfRollNos))]
-        listOfrollNoToPutzero=[]
-        for i in combinedArray:
-            if str(i[0]) in listOfWhoputProxy:
-                listOfrollNoToPutzero.append(i[1])
         df = pd.read_csv('reference.csv')
         df['Attendance'] = 0
 
-        col = ['S.No.','RollNo.','Name','Attendance']
-        outputdf = pd.DataFrame(columns = col)
 
-        j=1
-        for eachrollno in df['RollNo.']:
-           if str(eachrollno) in arrayOfRollNos:
-              outputdf.loc[j] = [df[df['RollNo.']==eachrollno]['S.No.'].values[0],df[df['RollNo.']==eachrollno]['RollNo.'].values[0],df[df['RollNo.']==eachrollno]['Name'].values[0],1]
+        first = 1
+        nameInAttendance=""
+        rollno=""
+        while True:
+            line1 = f.readline()
+            line2 = f.readline()
+            if not  line1:
+                break
+            arrayOfNames.append(re.split('\d+',line1)[0])
+            nameInAttendance=arrayOfNames[-1].split(" ")[0]
+            if first == 1:
+                nameInAttendance=nameInAttendance[3:]
+                first = first + 1
+            arrayOfRollNos.append(line2.split(" ")[0])
+            rollno=arrayOfRollNos[-1]
+
+            present = False
+            for j in list(df['RollNo.']):
+                if j == int(rollno):
+                    present = True
+                    break
+            if present == True:
+
+                name = df[df['RollNo.'] == int(rollno)]['Name'].values[0] 
+                SNo = df[df['RollNo.'] == int(rollno)]['S.No.'].values[0] 
+                
+                
+                proxyNAME = []   
+                if bool(nameInAttendance.upper()==str(name.split(" ")[0])):
+                    if df[df['RollNo.'] == int(rollno)]['Attendance'].values[0] != -10:
+                        df.iloc[SNo-1,-1]=1
+                    
+                else:
+                    proxyName = ""
+                    flag = False
+                    for i in list((df['Name'])):
+                        if str(i).split(" ")[0] == str(nameInAttendance.upper()):
+                            proxyName = i
+                            proxyNAME.append(i)
+                            flag = True
+
+                    if flag == True:
+                        proxyRollNo = df[df['Name'] == str(proxyName)]['RollNo.'].values[0]
+                        SNo1 = df[df['RollNo.'] == int(proxyRollNo)]['S.No.'].values[0]
+                        df.iloc[SNo1-1,-1]=-10
+
+        outputfinal = df.to_csv('final-attendance.csv', index=None,header=True)
+        return send_file("final-attendance.csv", mimetype="text/csv",attachment_filename="final-attendance.csv", as_attachment=True)
         
-           else:
-              outputdf.loc[j] = [df[df['RollNo.']==eachrollno]['S.No.'].values[0],df[df['RollNo.']==eachrollno]['RollNo.'].values[0],df[df['RollNo.']==eachrollno]['Name'].values[0],0]
-        
-           j=j+1
-        k=1  
-        for eachrollno in df['RollNo.']:
-           if str(eachrollno) in listOfrollNoToPutzero:
-              outputdf.loc[k] = [df[df['RollNo.']==eachrollno]['S.No.'].values[0],df[df['RollNo.']==eachrollno]['RollNo.'].values[0],df[df['RollNo.']==eachrollno]['Name'].values[0],0]
-           k=k+1
-        outputfinal = outputdf.to_csv('final-attendance.csv',index=None,header=True)
-        return send_file("final-attendance.csv",mimetype="text/csv",attachment_filename="final-attendance.csv", as_attachment=True)
-
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
