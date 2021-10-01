@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>ProxyTable</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='filteredtable.css')}}">
+  </head>
+  <body>
+    <h1>The List of Students who did proxy</h1>
+
+    <table border=1>
+      <tr>
+        <th>Name of Student</th>
+        <th>Roll No.</th>
+        <th>Attendance</th>
+      </tr>
+
+      {% for j in range(filtereddf.shape[0]) %}
+      <tr>
+        <td>{{filtereddf.iloc[j]["Name"]}}</td>
+        <td>{{filtereddf.iloc[j]["RollNo."]}}</td>
+        <td>{{filtereddf.iloc[j]["Attendance"]}}</td>
+      </tr>
+
+      {% endfor %}
+
+    </table>
+
+  </body>
+</html>
