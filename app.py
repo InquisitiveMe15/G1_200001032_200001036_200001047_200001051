@@ -53,6 +53,7 @@ def getfile():
             rollno=arrayOfRollNos[-1]
             # print(type(df['RollNo.']))
             # print(rollno)
+            #if rollno is wrong
             
             name = df[df['RollNo.'] == int(rollno)]['Name'].values[0] #DOUBT!!!!!!!!
             SNo = df[df['RollNo.'] == int(rollno)]['S.No.'].values[0] #DOUBT!!!!!!!!
@@ -76,7 +77,7 @@ def getfile():
                     # df[df['RollNo.'] == int(rollno)]['Attendance'].values[0]=-10
                     # df.loc[df['S.No.']==int(SNo),'Attendance']=-10
                     # print("NO")
-                    proxyRollNo = df[str(df['Name']).split(" ")[0] == str(nameInAttendance.upper())]['RollNo.'].values[0]
+                    proxyRollNo = df[list(df['Name'])[0] == str(nameInAttendance.upper())]['RollNo.'].values[0]
                     print(type(proxyRollNo))
                     SNo1 = df[df['RollNo.'] == int(proxyRollNo)]['S.No.'].values[0]
                     # df.iloc[SNo-1,-1]=-10
